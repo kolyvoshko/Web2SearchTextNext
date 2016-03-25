@@ -1,13 +1,13 @@
-#include "urlthree.h"
+#include "urltree.h"
 
-URLThree::URLThree(QObject *parent) : QObject(parent)
+URLTree::URLTree(QObject *parent) : QObject(parent)
 {
     progress = 0;
     max_scan_url = 1;
     max_number_threads = 1;
 }
 
-void URLThree::start_scan()
+void URLTree::start_scan()
 {
     emit message_to_log("log");
     emit message_to_find("find");

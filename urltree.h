@@ -1,20 +1,19 @@
-#ifndef URLTHREE_H
-#define URLTHREE_H
+#ifndef URLTREE_H
+#define URLTREE_H
 
 #include <QObject>
 
-class URLThree : public QObject
+class URLTree : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit URLThree(QObject *parent = 0);
+    explicit URLTree(QObject *parent = 0);
     void start_scan();
 
 signals:
     void message_to_log(QString info);
     void message_to_find(QString info);
-
     void update_progress(int value);
 
 public slots:
@@ -36,4 +35,4 @@ private:
     QString find_text;
 };
 
-#endif // URLTHREE_H
+#endif // URLTREE_H

@@ -3,7 +3,7 @@
 
 #include <QThread>
 
-#include "urlthree.h"
+#include "urltree.h"
 
 class StartThread : public QThread
 {
@@ -15,7 +15,7 @@ public:
 
     }
 
-    URLThree *tree;
+    URLTree *tree;
 };
 
 #endif // STARTTHREAD_H

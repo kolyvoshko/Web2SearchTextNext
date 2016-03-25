@@ -15,10 +15,10 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     startthread.cpp \
-    urlthree.cpp
+    urltree.cpp
 
 HEADERS  += mainwindow.h \
     startthread.h \
-    urlthree.h
+    urltree.h
 
 FORMS    += mainwindow.ui
