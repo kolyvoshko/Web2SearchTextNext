@@ -24,7 +24,7 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
-    void start_slot(){th->tree->start_slot();}
+    void start_slot();
 };
 
 #endif // MAINWINDOW_H

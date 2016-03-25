@@ -21,10 +21,19 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(th->tree, SIGNAL (update_progress(int)), ui->progressBar, SLOT (setValue(int)));
 
     th->start();
-    th->send_main_window(ui);
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::start_slot()
+{
+    th->tree->set_find_text(ui->plainTextEdit_search_text->toPlainText());
+    th->tree->set_start_url(ui->lineEdit_url->text());
+    th->tree->set_max_number_threads(ui->spinBox_number_scan_theads->value());
+    th->tree->set_max_scan_url(ui->spinBox_max_url->value());
+    th->tree->start_slot();
 }
