@@ -14,7 +14,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 private:
-    StartThread *start_thread;
+    StartThread *th;
 
 public:
     explicit MainWindow(QWidget *parent = 0);
@@ -24,8 +24,7 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
-    void start();
-    void messager(QString info);
+    void start_slot(){th->tree->start_slot();}
 };
 
 #endif // MAINWINDOW_H

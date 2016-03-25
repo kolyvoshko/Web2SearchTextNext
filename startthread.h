@@ -2,6 +2,7 @@
 #define STARTTHREAD_H
 
 #include <QThread>
+#include "ui_mainwindow.h"
 
 #include "urlthree.h"
 
@@ -10,12 +11,17 @@ class StartThread : public QThread
 public:
     StartThread();
 
-    void run()
+    void send_main_window(Ui::MainWindow *ui)
     {
-        three->start_scan();
+        tree->set_main_window(ui);
     }
 
-    URLThree *three;
+    void run()
+    {
+
+    }
+
+    URLThree *tree;
 };
 
 #endif // STARTTHREAD_H

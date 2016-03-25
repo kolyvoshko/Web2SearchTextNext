@@ -2,6 +2,6 @@
 
 StartThread::StartThread()
 {
-    three = new URLThree;
+    tree = new URLThree;
 }
 
