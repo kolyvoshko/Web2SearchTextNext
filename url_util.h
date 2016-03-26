@@ -69,6 +69,7 @@ static void find_url_core(std::list<std::string> *url_list, std::string *str, st
                && str->at(index) != ' '
                && str->at(index) != '<'
                && str->at(index) != '\''
+               && str->at(index) != ')'
                && str->at(index) != '>')
         {
             ch = str->at(index);
