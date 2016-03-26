@@ -4,9 +4,14 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+CONFIG   += c++11
+QT       += core gui concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+QMAKE_CXXFLAGS += -lcurl -std=c++11
+
+LIBS += -lcurl
 
 TARGET = web2scan
 TEMPLATE = app
@@ -19,6 +24,7 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     startthread.h \
-    urltree.h
+    urltree.h \
+    url_util.h
 
 FORMS    += mainwindow.ui

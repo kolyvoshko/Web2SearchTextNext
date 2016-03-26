@@ -13,7 +13,7 @@ class StartThread : public QThread
 public:
     StartThread();
 
-    void run(){}
+    void run(){tree->start_slot();}
 
     URLTree *tree;
 };
