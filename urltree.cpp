@@ -38,7 +38,7 @@ void URLTree::start_scan()
     {
         if (if_pause)
         {
-            //msleep(100);
+            msleep(400);
             continue;
         }
         if (if_stop)
@@ -53,14 +53,14 @@ void URLTree::start_scan()
             current_scan_urls++;
             std::cout << QThreadPool::globalInstance()->activeThreadCount() << std::endl;
 
+            process_bar_count = 100.0*(this->current_scan_urls + QThreadPool::globalInstance()->activeThreadCount())/this->max_scan_url;
+            emit update_progress(process_bar_count);
+
             if (current_scan_urls + QThreadPool::globalInstance()->activeThreadCount() > max_scan_url)
             {
                 synchronizer.waitForFinished();
                 break;
             }
-
-            process_bar_count = (100*this->current_scan_urls)/this->max_scan_url;
-            emit update_progress(process_bar_count);
 
             Node *current_node = current.front();
             current.pop();
@@ -71,7 +71,6 @@ void URLTree::start_scan()
         if (current.empty())
         {
             synchronizer.waitForFinished();
-            msleep(200);
             std::swap(current, next);
         }
     }
@@ -94,17 +93,21 @@ void URLTree::scan_node(std::queue<Node *> *nextLevel, Node *node)
     node->is_find_text = find_string(&html_code, &this->find_text);
 
 
-    std::string is_find = node->is_find_text ? "true" : "false";
+    std::string is_find = node->is_find_text ? "Text found" : "Text not found";
     std::string log_type_message = node->is_find_text ? "find" : "log";
 
 
     if (curl_type_message == "error")
         log_type_message = "error";
 
-    emit html_to_log_browser(QString::fromStdString(log_type_message),
-                             QString::fromStdString("URL: " + node->url
-                                                    + "\t"+ "Find text: " + is_find + "\n "
-                                                    + curl_message));
+    if (curl_message.size()>0)
+        emit html_to_log_browser(QString::fromStdString(log_type_message),
+                                QString::fromStdString("<br><font size=\"5\">URL: " + node->url + "</font>" +
+                                                       "<br><font size=\"4\">" + curl_message + "</font>"));
+    else
+        emit html_to_log_browser(QString::fromStdString(log_type_message),
+                                QString::fromStdString("<br><font size=\"5\">URL: " + node->url + "</font>" +
+                                                       "<br><font size=\"4\">" + is_find + "</font>"));
 
     if (node->is_find_text){
         // out to stdout
@@ -130,13 +133,13 @@ void URLTree::scan_node(std::queue<Node *> *nextLevel, Node *node)
 
             Node * add_node = new Node;
             add_node->url = it;
-            node->childs.push_back(add_node);
+            node->children.push_back(add_node);
         }
     }
 
-    if (!node->childs.empty())
+    if (!node->children.empty())
     {
-        for (auto &it : node->childs)
+        for (auto &it : node->children)
             nextLevel->push(it);
     }
 }
@@ -158,9 +161,9 @@ bool URLTree::find_node(std::string * url)
         if (current_node->url == *url)
             return true;
 
-        if (!current_node->childs.empty())
+        if (!current_node->children.empty())
         {
-            for (auto &it : current_node->childs)
+            for (auto &it : current_node->children)
                 next.push(it);
         }
 
@@ -182,9 +185,13 @@ void URLTree::update()
 
 void URLTree::start_slot()
 {
-    this->if_stop = false;
-    this->if_pause = false;
-    this->start_scan();
+    if (if_pause)
+        this->if_pause = false;
+
+    else{
+        this->if_stop = false;
+        this->start_scan();
+    }
 }
 
 

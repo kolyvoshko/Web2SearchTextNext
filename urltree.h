@@ -21,8 +21,8 @@ struct Node
     bool is_find_text; /// if tint text - true
     bool is_scan;      /// if scaned    - true
 
-    std::string url;
-    std::list<Node *> childs;
+    std::string url;    /// node url
+    std::list<Node *> children;
 };
 
 /**
@@ -73,7 +73,7 @@ private:
 
     /**
      * @brief scan_node scan one node and all not find url to node->childs
-     * @param node
+     * @param node: scanning node
      */
     void scan_node(std::queue<Node *> *nextLevel, Node * node);
 
