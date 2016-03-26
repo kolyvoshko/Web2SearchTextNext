@@ -6,7 +6,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
     ui->progressBar->setValue(0);
+
+    ui->spinBox_max_url->setValue(1);
+    ui->spinBox_max_url->setMinimum(1);
+    ui->spinBox_max_url->setMaximum(10000);
+
+    ui->spinBox_number_scan_theads->setValue(1);
+    ui->spinBox_number_scan_theads->setMinimum(1);
+    ui->spinBox_number_scan_theads->setMaximum(1000);
+
+    ui->lineEdit_url->setText("https://www.google.com.ua/");
+    ui->plainTextEdit_search_text->appendPlainText("Google");
 
     th = new StartThread;
     th->start();

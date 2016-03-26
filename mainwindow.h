@@ -24,6 +24,9 @@ private:
     Ui::MainWindow *ui;
 
 private slots:
+    /**
+     * @brief start_slot Start scanning url
+     */
     void start_slot();
 };
 

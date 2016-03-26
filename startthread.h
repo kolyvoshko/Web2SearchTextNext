@@ -5,15 +5,15 @@
 
 #include "urltree.h"
 
+/**
+ * @brief The StartThread class start URLTree object in own QThread
+ */
 class StartThread : public QThread
 {
 public:
     StartThread();
 
-    void run()
-    {
-
-    }
+    void run(){}
 
     URLTree *tree;
 };
