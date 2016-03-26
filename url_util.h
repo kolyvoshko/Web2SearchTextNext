@@ -16,7 +16,7 @@ static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *use
 
 /**
  * @brief download_html download html from url addres
- * @param url url addres
+ * @param url scanning url
  * @return html code
  */
 std::string download_html(const char *url, std::string *curl_type_message, std::string *curl_message)
@@ -50,7 +50,12 @@ std::string download_html(const char *url, std::string *curl_type_message, std::
 }
 
 
-
+/**
+ * @brief find_url_core
+ * @param url_list list into add urls
+ * @param str scanning html code
+ * @param sub substring if the scaning html code
+ */
 static void find_url_core(std::list<std::string> *url_list, std::string *str, std::string sub)
 {
     size_t pos = str->find(sub, 0);
