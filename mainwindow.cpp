@@ -19,8 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->spinBox_number_scan_theads->setMinimum(1);
     ui->spinBox_number_scan_theads->setMaximum(1000);
 
-    ui->lineEdit_url->setText("https://www.google.com.ua/");
-    ui->plainTextEdit_search_text->appendPlainText("Google");
+    ui->lineEdit_url->setText("https://www.gentoo.org/");
+    ui->plainTextEdit_search_text->appendPlainText("Gentoo");
 
     // for find end log browsers
     html_style = "<style>"
@@ -44,7 +44,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(th->tree, SIGNAL(message_to_log(QString)), ui->textBrowser_log,   SLOT(append(QString)));
     connect(th->tree, SIGNAL(message_to_find(QString)), ui->textBrowser_find, SLOT(append(QString)));
 
-    connect(th->tree, SIGNAL(html_to_find_browser(QString,QString)), this, SLOT (html_to_find_browser(QString,QString)));
+    connect(th->tree, SIGNAL(html_to_find_browser(QString,QString)), this, SLOT(html_to_find_browser(QString,QString)));
     connect(th->tree, SIGNAL(html_to_log_browser(QString,QString)),  this, SLOT(html_to_log_browser(QString,QString)));
 
     connect(ui->actionExit, SIGNAL(triggered(bool)), this->window(), SLOT(close()));

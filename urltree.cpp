@@ -4,6 +4,7 @@
 #include <list>
 #include <queue>
 #include <string>
+#include <htmlcxx/html/ParserDom.h>
 
 #include "url_util.h"
 
@@ -90,9 +91,14 @@ void URLTree::scan_node(std::queue<Node *> *nextLevel, Node *node)
     std::string curl_message;
 
     std::string html_code(download_html(node->url.c_str(), &curl_type_message, &curl_message) );
-    node->is_find_text = find_string(&html_code, &this->find_text);
+    tree<htmlcxx::HTML::Node> dom = parse_html(html_code);
 
+    std::string text = get_text(&dom);
 
+    std::cout << text << std::endl;
+    node->is_find_text = find_string(&text, &this->find_text);
+
+    // print messages to log and find
     std::string is_find = node->is_find_text ? "Text found" : "Text not found";
     std::string log_type_message = node->is_find_text ? "find" : "log";
 
@@ -102,12 +108,14 @@ void URLTree::scan_node(std::queue<Node *> *nextLevel, Node *node)
 
     if (curl_message.size()>0)
         emit html_to_log_browser(QString::fromStdString(log_type_message),
-                                QString::fromStdString("<br><font size=\"5\">URL: " + node->url + "</font>" +
-                                                       "<br><font size=\"4\">" + curl_message + "</font>"));
+                                 QString::fromStdString("<br><font size=\"5\">URL: " + node->url +
+                                                        "</font>" + "<br><font size=\"4\">" +
+                                                        curl_message + "</font>"));
     else
         emit html_to_log_browser(QString::fromStdString(log_type_message),
-                                QString::fromStdString("<br><font size=\"5\">URL: " + node->url + "</font>" +
-                                                       "<br><font size=\"4\">" + is_find + "</font>"));
+                                 QString::fromStdString("<br><font size=\"5\">URL: " + node->url +
+                                                        "</font>" + "<br><font size=\"4\">" +
+                                                        is_find + "</font>"));
 
     if (node->is_find_text){
         // out to stdout
@@ -119,9 +127,9 @@ void URLTree::scan_node(std::queue<Node *> *nextLevel, Node *node)
         // redirect to gui text browsers
         emit html_to_find_browser("find", QString::fromStdString(node->url));
     }
+    // end of print
 
-
-    std::list<std::string> urls = find_url(&html_code);
+    std::list<std::string> urls = get_url(&dom);
 
     for (auto it : urls)
     {

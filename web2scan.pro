@@ -9,9 +9,9 @@ QT       += core gui concurrent
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-QMAKE_CXXFLAGS += -lcurl -std=c++11
+QMAKE_CXXFLAGS += -lcurl -lhtmlcxx -std=c++11
 
-LIBS += -lcurl
+LIBS += -lcurl -lhtmlcxx
 
 TARGET = web2scan
 TEMPLATE = app
