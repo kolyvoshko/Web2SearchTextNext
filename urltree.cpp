@@ -95,7 +95,7 @@ void URLTree::scan_node(std::queue<Node *> *nextLevel, Node *node)
 
     std::string text = get_text(&dom);
 
-    std::cout << text << std::endl;
+    //std::cout << text << std::endl;
     node->is_find_text = find_string(&text, &this->find_text);
 
     // print messages to log and find
