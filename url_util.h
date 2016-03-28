@@ -31,8 +31,8 @@ std::string download_html(const char *url, std::string *curl_type_message, std::
 
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-        curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10);
-        curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_easy_setopt(curl, CURLOPT_TIMEOUT, 20);
+        curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 10);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
         res = curl_easy_perform(curl);
 
